@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="/layout :: head">
+    <title>Chỉnh sửa thành phố</title>
+</head>
+<body>
+<div class="container">
+    <div class="row justify-content-center mt-4">
+        <form class="col-md-6" method="post" novalidate="novalidate"
+              th:object="${city}" th:action="@{/cities/edit/{id}(id=${city.getId()})}">
+            <h1 class="">Chỉnh sửa thành phố</h1>
+            <input type="hidden" th:field="*{id}"/>
+            <div class="form-group">
+                <label for="name">Tên
+                </label>
+                <input type="text" class="form-control" id="name" th:field="*{name}">
+            </div>
+            <div class="form-group">
+                <label for="description">Giới thiệu</label>
+                <input type="text" class="form-control" id="description" th:field="*{description}">
+            </div>
+            <div class="form-group">
+                <label for="area">Diện tích</label>
+                <input type="text" class="form-control" id="area" th:field="*{area}">
+            </div>
+            <div class="form-group">
+                <label for="gdp">GDP</label>
+                <input type="text" class="form-control" id="gdp" th:field="*{gdp}">
+            </div>
+            <div class="form-group">
+                <label for="population">Dân số</label>
+                <input type="text" class="form-control" id="population" th:field="*{population}">
+            </div>
+            <div class="col-md-3 position-relative">
+                <label for="type" class="form-label">Quốc gia</label>
+                <select class="form-select" id="type" th:field="*{country.id}" required>
+                    <option selected th:each="t: ${country}" th:value="${t.id}" th:text="${t.name}"></option>
+                </select>
+            </div>
+            <div class="form-group mt-2">
+                <button class="btn btn-success" role="button" type="submit">Cật nhật</button>
+                <button class="btn btn-warning" role="button" onclick="cancelForm()">Thoát</button>
+            </div>
+        </form>
+    </div>
+</div>
+<footer th:replace="/layout :: footer"></footer>
+
+<script type="text/javascript">
+    function cancelForm(){
+        window.location = "[[@{/city}]]";
+    }
+</script>
+</body>
+</html>
